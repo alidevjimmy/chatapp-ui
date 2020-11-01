@@ -1,7 +1,20 @@
-import '../styles/globals.css'
+import '../styles/globals.css' 
+import dynamic from 'next/dynamic'
+import "nprogress/nprogress.css";
+
+const TopProgressBar = dynamic(
+  () => {
+    return import("../components/TopProgressBar");
+  },
+  { ssr: false },
+);
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+
+  return <>
+    <TopProgressBar />
+    <Component {...pageProps} />
+  </>
 }
 
 export default MyApp
