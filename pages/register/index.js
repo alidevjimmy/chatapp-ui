@@ -24,6 +24,7 @@ export default function Register() {
         axios.post(`${APP_CONFIG.baseUrl}/${APP_CONFIG.appVersion}/auth/register`, data)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('_id', res.data._id)
                 router.push('/')
 
             })

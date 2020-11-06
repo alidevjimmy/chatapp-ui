@@ -15,13 +15,21 @@
   font-weight: lighter;
 }
 
+:root {
+  --deep-blue : #1b1b2f;
+  --light-blue : #162447;
+  --lighter-blue : #1f4068;
+  --skeleton-bg :#8e9297;
+  --app-red : #e43f5a;
+
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: raleway !important;
-  background-color: #1b1b2f !important;
+  background-color: var(--deep-blue) !important;
 }
 
 input,
@@ -70,14 +78,14 @@ h6 {
   padding: 10px;
   font-size: 14px;
   border-radius: 4px;
-  background-color: #162447;
+  background-color: var(--light-blue);
   width: 100%;
   margin-top: 10px;
 }
 
 .div-input {
   border-radius: 4px;
-  background-color: #1b1b2f !important;
+  background-color: var(--deep-blue) !important;
   width: 100%;
   padding: 5px;
   display: flex;
@@ -85,26 +93,27 @@ h6 {
 
 .div-input>input {
   border-radius: 4px;
-  background-color: #1b1b2f !important;
+  background-color: var(--deep-blue) !important;
   width: 100%;
   color: white;
   padding-left: 5px;
 }
 
 .top-bar {
-  background-color: #162447 !important;
+  background-color: var(--light-blue) !important;
   width: 100%;
   height: auto;
   padding: 20px;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 100000000000000000000000;
 }
 
 .button {
   width: 100%;
   padding: 10px;
-  background-color: #e43f5a;
+  background-color: var(--app-red);
   border-radius: 4px;
   margin-top: 10px;
   color: white;
@@ -136,7 +145,7 @@ hr {
 }
 
 .or {
-  background-color: #1b1b2f;
+  background-color: var(--deep-blue);
   padding: 5px;
   position: relative;
   top: 15px;
@@ -150,7 +159,7 @@ hr {
 }
 
 .login-button {
-  background-color: #1f4068;
+  background-color: var(--lighter-blue);
   border-radius: 4px;
   width: 100%;
   text-align: center;
@@ -158,11 +167,11 @@ hr {
 }
 
 .input-err {
-  border: 2px solid #e43f5a;
+  border: 2px solid var(--app-red);
 }
 
 .text-err {
-  color: #e43f5a;
+  color: var(--app-red);
   font-size: 12px;
 }
 
@@ -171,17 +180,17 @@ hr {
 }
 
 #nprogress .bar {
-  background: #e43f5a !important;
-  box-shadow: 0 0 10px #e43f5a !important;
+  background: var(--app-red) !important;
+  box-shadow: 0 0 10px var(--app-red) !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: #e43f5a !important;
-  border-left-color: #e43f5a !important;
+  border-top-color: var(--app-red) !important;
+  border-left-color: var(--app-red) !important;
 }
 
 .Mui-selected {
-  color: #e43f5a !important;
+  color: var(--app-red) !important;
 }
 
 .chat-div {
@@ -194,4 +203,29 @@ hr {
   width: 100%;
   position: relative;
   bottom: 0;
+}
+.MuiSkeleton-root {
+  background-color: var(--skeleton-bg) !important;
+}
+
+.div-skeleton {
+  padding: 20px;
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+.MuiSnackbar-anchorOriginBottomLeft{
+  bottom: 69px !important;
+}
+.not-found-err {
+  text-align: center;
+  align-items: center;
+  margin-top: 50px;
+}
+.MuiList-root {
+  max-width: unset !important;
+  background-color: unset !important;
+}
+.MuiAvatar-colorDefault {
+  background-color: var(--light-blue) !important;
 }
