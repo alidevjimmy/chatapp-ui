@@ -1,10 +1,9 @@
 import { Search } from "@material-ui/icons"
-import Link from "next/link"
 import Auth from '../components/Auth'
 import Main from '../components/Main'
 import SearchBox from "../components/SearchBox"
 import SnakBar from "../components/SnakBar"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import Skeleton from '@material-ui/lab/Skeleton';
 import axios from "axios"
 import { APP_CONFIG } from '../constant/config'
@@ -43,12 +42,45 @@ export default function Home() {
   const [rooms, setRooms] = useState([])
   const [showSkeleton, setShowSkeleton] = useState(true)
   const [err, setErr] = useState('')
-  
+  const [count, setCount] = useState(0)
 
+  var _id = localStorage.getItem('_id')
   const token = localStorage.getItem('token')
 
-  useEffect(() => {
 
+  useEffect(() => {
+    if (count == 0) {
+      fetchRooms()
+      setCount(count + 1)
+    }
+  }, [])
+
+  function search(e) {
+    setRooms([])
+    setShowSkeleton(true)
+    var username = e.target.value;
+    axios.get(`${APP_CONFIG.baseUrl}/${APP_CONFIG.appVersion}/rooms/findUsers`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      params: {
+        username
+      }
+    })
+      .then(res => {
+        setShowSkeleton(false)
+        if (!username) {
+          setRooms(res.data.rooms)
+        }
+        else { setRooms(res.data) }
+      })
+      .catch(err => {
+        setShowSkeleton(false)
+        setErr(err.response.data.message)
+      })
+  }
+
+  function fetchRooms() {
     axios.get(`${APP_CONFIG.baseUrl}/${APP_CONFIG.appVersion}/rooms`, {
       headers: {
         "Authorization": `Bearer ${token}`
@@ -56,17 +88,13 @@ export default function Home() {
     })
       .then(res => {
         setShowSkeleton(false)
-        setRooms(res.data)
-        res.data.forEach(element => {
-                     
-        });
+        setRooms(res.data.rooms)
       })
       .catch(err => {
         setShowSkeleton(false)
-        console.log(err.response)
         setErr(err.response.data.message)
       })
-  }, [])
+  }
 
   const classes = useStyles();
 
@@ -74,7 +102,14 @@ export default function Home() {
     <Auth>
       <Main selected="chats">
         {err ? <SnakBar open={true}>{err}</SnakBar> : null}
-        <SearchBox />
+        <div className="top-bar">
+          <div className="div-input">
+            <Search />
+            <input type="text" name="search" placeholder="Search..." onChange={e => search(e)} />
+            <input type="submit" style={{ display: "none" }} />
+
+          </div>
+        </div>
         <div className="chat-div">
           {showSkeleton ? ChatSkeleton() : null}
 
@@ -86,7 +121,7 @@ export default function Home() {
                     <Person />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+                <ListItemText primary={room.username ? room.username : room.users[room.users.length - 1].username} />
               </ListItem>
             })}
           </List>

@@ -16,8 +16,8 @@ function MyApp({ Component, pageProps }) {
   return <>
     <BrowserView>
       <div className="container">
-        <h3 align="center">Please use fucking phone</h3>
-        <h3 align="center">Thank you :)</h3>
+        <h3 align="center">Please Use Your Fucking Phone</h3>
+        <h3 align="center">Thanks a lot :)</h3>
       </div>
     </BrowserView>
     <MobileView>

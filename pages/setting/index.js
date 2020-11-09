@@ -1,4 +1,3 @@
-import Link from "next/link"
 import Auth from '../../components/Auth'
 import Main from '../../components/Main'
 import Exit from '@material-ui/icons/ExitToApp'
@@ -8,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Setting() {
 
+    const router = useRouter()
+
     function logout() {
-        const router = useRouter()
         localStorage.clear()
         router.push('/login')
-    
     }
     
     const classes = useStyles();
@@ -33,15 +32,14 @@ export default function Setting() {
         <Auth>
             <Main selected="setting">
                 <List className={classes.root}>
-                    <ListItem button>
+                    <ListItem button onClick={logout}>
                         <ListItemAvatar>
                             <Avatar>
                                 <Exit />
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary="Exit" onClick={logout} />
+                        <ListItemText primary="Exit" />
                     </ListItem>
-
                 </List>
             </Main>
         </Auth>

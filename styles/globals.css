@@ -91,7 +91,7 @@ h6 {
   display: flex;
 }
 
-.div-input>input {
+.div-input >input {
   border-radius: 4px;
   background-color: var(--deep-blue) !important;
   width: 100%;
