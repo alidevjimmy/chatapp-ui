@@ -229,3 +229,35 @@ hr {
 .MuiAvatar-colorDefault {
   background-color: var(--light-blue) !important;
 }
+
+.chat-back {
+  padding: 20px;
+  background-color: var(--light-blue);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
+.chat-input-back {
+  background-color: var(--deep-blue);
+  padding: 5px;
+  height: auto;
+  border-radius: 50px; 
+  /* display: flex; */
+}
+
+.chat-box {
+  background-color: var(--deep-blue);
+  width: 100%;
+  height: auto;
+  padding-left: 10px;
+  border-radius: 50px;
+}
+.chat-form {
+  display: flex;
+}
+
+.send-button {
+  background-color: var(--app-red) !important;
+}

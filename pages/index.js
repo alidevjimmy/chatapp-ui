@@ -14,11 +14,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Person from '@material-ui/icons/Person';
+import Link from 'next/link'
 
 function ChatSkeleton() {
   let rows = []
   for (let i = 0; i < 30; i++) {
-    rows.push(<div className="div-skeleton">
+    rows.push(<div className="div-skeleton" key={i}>
       <Skeleton variant="circle" width={50} height={45} />
       <div style={{ width: "100%", marginTop: "5px", marginLeft: "10px" }}>
         <Skeleton width="30%" height={20} />
@@ -70,7 +71,7 @@ export default function Home() {
       .then(res => {
         setShowSkeleton(false)
         if (!username) {
-          setRooms(res.data.rooms)
+          setRooms(res.data)
         }
         else { setRooms(res.data) }
       })
@@ -88,7 +89,7 @@ export default function Home() {
     })
       .then(res => {
         setShowSkeleton(false)
-        setRooms(res.data.rooms)
+        setRooms(res.data)
       })
       .catch(err => {
         setShowSkeleton(false)
@@ -102,27 +103,39 @@ export default function Home() {
     <Auth>
       <Main selected="chats">
         {err ? <SnakBar open={true}>{err}</SnakBar> : null}
-        <div className="top-bar">
+        <section className="top-bar">
           <div className="div-input">
             <Search />
             <input type="text" name="search" placeholder="Search..." onChange={e => search(e)} />
             <input type="submit" style={{ display: "none" }} />
-
           </div>
-        </div>
+        </section>
         <div className="chat-div">
           {showSkeleton ? ChatSkeleton() : null}
 
           <List className={classes.root}>
-            {rooms.length == 0 ? <h4 className="not-found-err">Room Not Found</h4> : rooms.map(room => {
-              return <ListItem button>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Person />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={room.username ? room.username : room.users[room.users.length - 1].username} />
-              </ListItem>
+            {rooms.length == 0 ? <h4 className="not-found-err">Room Not Found</h4> : rooms instanceof Array ? rooms.map(room => {
+              return <Link button href={`/@/${room._id}`} as={`/@/${room._id}`} key={room._id}>
+                <ListItem button>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Person />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={room.username} secondary="Jan 9, 2014" />
+                </ListItem>
+              </Link>
+            }) : rooms.rooms.map(room => {
+              return <Link button href={`/@/${room.users[1]._id}`} as={`/@/${room.users[1]._id}`} key={room._id}>
+                <ListItem button>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Person />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={room.users[1].username} secondary="Jan 9, 2014" />
+                </ListItem>
+              </Link>
             })}
           </List>
 
